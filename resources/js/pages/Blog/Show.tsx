@@ -1,58 +1,57 @@
+import React from 'react';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
-import { Head , Link} from '@inertiajs/react';
-import React from 'react'
+import { Head, Link } from '@inertiajs/react';
+
 const breadcrumbs: BreadcrumbItem[] = [
-    {
-
-        title: 'posts',
-        href: '/posts',
-
-    },
+  {
+    title: 'Posts',
+    href: '/posts',
+  },
 ];
-const Show = ({posts}:any) => {
+
+const Show = ({ posts }: any) => {
   return (
-        <AppLayout breadcrumbs={breadcrumbs}>
-              <Head title="posts" />
-       <div className="w-full mx-auto p-8 bg-gray-50 rounded-lg shadow-md mt-12">
-      {/* Back Button */}
-      <Link href="/posts">
-        <a className="inline-block mb-8 px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
+    <AppLayout breadcrumbs={breadcrumbs}>
+      <Head title={posts.title} />
+      <div className="max-w-7xl mx-auto px-6 py-16">
+        {/* Back Button */}
+        <Link
+          href="/posts"
+          className="inline-block mb-12 px-6 py-3 bg-gray-300 text-gray-800 font-medium rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition"
+          aria-label="Back to posts"
+        >
           &larr; Back to Posts
-        </a>
-      </Link>
-
-      {/* Post Card */}
-      <div className="bg-white p-8 rounded-lg shadow-sm">
-        {/* Title Section */}
-        <div className="mb-8">
-          <h3 className="text-xl font-semibold text-gray-700 mb-2">Title</h3>
-          <p className="text-3xl font-bold text-gray-900">{posts.title}</p>
-          <hr className="mt-4" />
-        </div>
-
-        {/* Body Section */}
-        <div>
-          <h3 className="text-xl font-semibold text-gray-700 mb-2">Body</h3>
-          <p className="text-lg text-gray-800 whitespace-pre-line">{posts.body}</p>
-          <hr className="mt-4" />
-        </div>
-      </div>
-
-      {/* Edit Button */}
-      <div className="mt-8 flex justify-end">
-        <Link href={`/posts/${posts.id}/edit`}>
-          <a className="px-6 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition">
-            Edit Post
-          </a>
         </Link>
+
+        {/* Post Title */}
+        <h1 className="text-5xl font-extrabold text-blue-900 mb-6 tracking-tight leading-tight">
+          {posts.title}
+        </h1>
+
+        {/* Post Body */}
+        <article className="text-gray-800 text-lg leading-relaxed whitespace-pre-line prose prose-blue max-w-none">
+          {posts.body}
+        </article>
+
+        {/* Post Date */}
+        <p className="text-sm text-gray-500 italic mb-14 select-none">
+          Posted on {new Date(posts.created_at).toLocaleDateString()}
+        </p>
+
+        {/* Edit Button */}
+        <div className="mt-20 flex justify-end">
+          <Link
+            href={`/posts/${posts.id}/edit`}
+            className="px-8 py-3 bg-gray-300 text-gray-800 font-medium rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition"
+            aria-label="Edit this post"
+          >
+            Edit Post
+          </Link>
+        </div>
       </div>
-    </div>
     </AppLayout>
   );
-  
-}
+};
 
-export default Show
-
-
+export default Show;

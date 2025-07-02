@@ -5,56 +5,58 @@ use App\Models\Blog;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Data\ContactData;
+use App\Data\BlogData;
 
 class BlogPost extends Controller
 {
-    /**
-     * Display a listing of the resource.
-    */
 
-    public function index()
-    {
-        $posts = Blog::all();
-       return inertia('Blog/Index', [
-          "posts"=>$posts
-        ]); 
-        return redirect()->route('blog.index');
-        
-    }
+public function index()
+{
+
+$blog = Blog::orderBy('created_at', 'desc')->get();
+$posts = ContactData::collect($blog);
+
+    return Inertia('Blog/Index', [
+        'posts' => $posts,
+    ]);
+}
+
     
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+public function create()
     {
         $posts = Blog::all();
         return inertia('Blog/Create', [
-"posts"=>$posts
-           
-         ]); 
-  
+            "posts"=>$posts
+            
+        ]); 
     }
 
-
-    public function store(Request $request)
+    
+    public function store(ContactData $data)
     {
-
-       $data = ContactData::from($request);
-
-        Blog::create($data->toArray());
-      
+        
+     Blog::create([
+    // 'id' => null,
+    'title' => $data->title,
+    'body' => $data->body,
+    // 'created_at' => now(),
+]);
         return redirect()->route('posts.index')->with('success', 'Blog post created successfully!');
     }
     
     
     
-    public function show(string $id)
-    {
-        $posts = Blog::find($id);
-        return inertia("Blog/Show",[
-            "posts"=>$posts
-        ]);
-        
+ public function show(string $id)
+{                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+    
+           $posts = Blog::find($id);
+    return inertia("Blog/Show",[
+        "posts"=>$posts
+    ]);
+    
+    
+    $contactData = ContactData::from(Blog::findOrFail($id));
+    dd($contactData);
     }
     
     
@@ -69,27 +71,24 @@ class BlogPost extends Controller
 
         
     }
-    
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(ContactData $data, string $id)
     {
-        $data = ContactData::from($request);
+        
 
         $post = Blog::find($id);
         if ($post) {
-            $post->update($data->toArray());
+            
+            $post->title = ($data->title);
+            $post->body = ($data->body);
+               $post->save();
             return redirect()->route('posts.index')->with('success', 'Blog post updated successfully!');
         } else {
             return redirect()->route('posts.index')->with('error', 'Blog post not found!');
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+  
     public function destroy(string $id)
     {
         $post = Blog::find($id);

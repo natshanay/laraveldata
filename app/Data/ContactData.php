@@ -1,31 +1,24 @@
 <?php
+
 namespace App\Data;
 
 use Spatie\LaravelData\Data;
+// 
+use Spatie\LaravelData\DataCollection;
+// 
+use Spatie\LaravelData\WithDataCollection;
+use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
+#[TypeScript] // ← THIS IS CRITICAL!
 class ContactData extends Data
 {
- public function __construct(
-        public ?string $title,
+        // use WithDataCollection;d
+    public function __construct(
+        
+        public ?string $id,
+        public string $title,
         public string $body,
-     
-    ) {
-    }
-    //  public static function rules(): array
-    // {
-    //     return [
-    //         "title" => "required|string|max:255",
-    //         "body" => "required|string|max:1000",
-    //     ];
-    // }
-
-    // public static function fromRequest($request): self
-    // {
-    //     return new self(
-    //         title: $request->input('title'),
-    //         body: $request->input('body'),
-    //     );
-    // }
-
-
+        public ?string $created_at,
+        
+    ) {}
 }

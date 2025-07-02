@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\BlogPost;
+use App\Http\Controllers\BController;
 
 
 Route::get('/', function () {
@@ -10,7 +11,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::resource('posts', BlogPost::class);
-Route::resource('blogs', BlogPost::class);
+Route::resource('blogs', BController::class);
 
 
 Route::middleware(['auth', 'verified'])->group(function () {

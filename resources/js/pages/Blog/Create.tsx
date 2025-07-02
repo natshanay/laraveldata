@@ -1,91 +1,109 @@
-import AppLayout from '@/layouts/app-layout';
-import { BreadcrumbItem } from '@/types';
-import { Input } from '@headlessui/react';
-import { Head, useForm } from '@inertiajs/react';
 import React from 'react'
+import AppLayout from '@/layouts/app-layout'
+import { BreadcrumbItem } from '@/types'
+import { Head, Link, useForm } from '@inertiajs/react'
+
 const breadcrumbs: BreadcrumbItem[] = [
-    {
+  {
+    title: 'Posts',
+    href: '/posts',
+  },
+]
 
-        title: 'posts',
-        href: '/posts',
-
-    },
-];
-
-const create = () => {
-     const submitt = (e: any) => {
-         post(route('posts.store'));
-
-    }
+const Create = () => {
   const { data, setData, post, processing, errors, reset } = useForm({
     title: '',
     body: '',
-  });
-  
-  console.log(errors)
+  })
 
-    console.log(data)
- return (
-  <>
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault()
+    post(route('posts.store'))
+  }
+
+  return (
     <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title="posts" />
+      <Head title="Create Post" />
+      <div className="max-w-xl mx-auto px-6 py-16">
+        <Link
+          href="/posts"
+          className="inline-block mb-8 px-6 py-3 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 transition font-semibold"
+          aria-label="Back to posts"
+        >
+          ← Back to Posts
+        </Link>
 
-      <div className="flex flex-col gap-6 rounded-xl p-6 overflow-x-auto">
-        <div className="max-w-md mx-auto w-full">
-          <form action={submitt} className="space-y-6">
-            <h3 className="bg-blue-500 p-2 text-white text-center rounded-sm text-xl font-semibold">
-              Create your Post
-            </h3>
+        <form
+          onSubmit={submit}
+          className="bg-white border border-gray-200 rounded-xl shadow-lg p-8 space-y-8"
+          aria-label="Create post form"
+        >
+          <h2 className="text-3xl font-extrabold text-blue-900 text-center tracking-tight mb-6">
+            Create New Post
+          </h2>
 
+          <div>
             <label
               htmlFor="title"
-              className="block text-2xl font-medium text-white bg-blue-400 rounded-md p-2 text-center"
+              className="block mb-2 font-semibold text-gray-800 text-lg"
             >
               Title
             </label>
-            <Input
+            <input
               id="title"
-              className="mt-1 block w-full rounded-sm p-3 text-2xl border-2 border-black"
+              type="text"
               value={data.title}
               onChange={(e) => setData('title', e.target.value)}
+              className="w-full p-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-300 transition"
+              placeholder="Enter post title"
               autoComplete="off"
-              placeholder="Title"
+              maxLength={100}
+              aria-describedby="titleHelp"
+              required
             />
             {errors.title && (
-              <div className="text-red-400 text-sm mt-1">{errors.title}</div>
+              <p className="mt-1 text-red-600 font-semibold">{errors.title}</p>
             )}
+          </div>
 
+          <div>
             <label
               htmlFor="body"
-              className="block text-2xl font-medium text-white bg-blue-400 rounded-md p-2 text-center"
+              className="block mb-2 font-semibold text-gray-800 text-lg"
             >
               Body
             </label>
-            <Input
+            <textarea
               id="body"
-              className="mt-1 block w-full rounded-sm p-3 text-2xl border-2 border-black"
               value={data.body}
               onChange={(e) => setData('body', e.target.value)}
-              autoComplete="off"
-              placeholder="Body"
+              className="w-full p-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-blue-300 transition resize-y min-h-[150px]"
+              placeholder="Write your post here..."
+              maxLength={2000}
+              aria-describedby="bodyHelp"
+              required
             />
             {errors.body && (
-              <div className="text-red-400 text-sm mt-1">{errors.body}</div>
+              <p className="mt-1 text-red-600 font-semibold">{errors.body}</p>
             )}
+          </div>
 
-            <button
-              type="submit"
-              className="w-full bg-black text-white py-3 rounded-md font-semibold hover:bg-gray-900 transition cursor-pointer"
-            >
-              Submit
-            </button>
-          </form>
-        </div>
+          <button
+            type="submit"
+            disabled={processing}
+            className={`w-full py-4 rounded-xl font-extrabold text-white shadow-lg transition focus:outline-none focus:ring-4 focus:ring-blue-400 ${
+              processing
+                ? 'bg-blue-300 cursor-not-allowed'
+                : 'bg-blue-600 hover:bg-blue-700'
+            }`}
+            aria-live="polite"
+          >
+            {processing ? 'Submitting...' : 'Submit Post'}
+          </button>
+        </form>
       </div>
     </AppLayout>
-  </>
-);
-
+  )
 }
 
-export default create
+export default Create

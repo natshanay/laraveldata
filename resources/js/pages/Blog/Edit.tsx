@@ -1,94 +1,123 @@
-import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
-import { Input } from '@headlessui/react';
-import { Head , Link} from '@inertiajs/react';
-import { useForm } from '@inertiajs/react';
-
+import React, { useState } from 'react'
+import AppLayout from '@/layouts/app-layout'
+import { BreadcrumbItem } from '@/types'
+import { Head, Link, useForm } from '@inertiajs/react'
 
 const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'posts',
-        href: '/posts',
-    },
-];
-export default function Dashboard({posts}:any) {
-    const submitt = (e: any) => {
-         put(route('posts.update', posts.id));
+  {
+    title: 'Posts',
+    href: '/posts',
+  },
+]
 
-    }
-  const { data, setData, put, processing, errors, reset } = useForm({
-    title: posts.title, 
+const EditPost = ({ posts }: any) => {
+  const { data, setData, put, processing, errors } = useForm({
+    title: posts.title,
     body: posts.body,
-  });
-  console.log("cdcd")
-  console.log(data.title)
-  console.log(errors)
+  })
 
-    console.log(data)
+  const [bodyCharCount, setBodyCharCount] = useState(data.body.length)
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault()
+    put(route('posts.update', posts.id))
+  }
+
+  const onBodyChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setData('body', e.target.value)
+    setBodyCharCount(e.target.value.length)
+  }
+
   return (
-  <AppLayout breadcrumbs={breadcrumbs}>
-    <Head title="posts" />
+    <AppLayout breadcrumbs={breadcrumbs}>
+      <Head title="Edit Post" />
+      <div className="max-w-xl mx-auto px-6 py-16 min-h-screen">
+        <Link
+          href="/posts"
+          className="inline-block mb-8 px-6 py-3 bg-red-600 text-white rounded-md shadow-md hover:bg-red-700 transition font-semibold"
+          aria-label="Back to posts"
+        >
+          ← Back to Posts
+        </Link>
 
-    <Link
-      href="/posts"
-      className="bg-blue-400 flex items-center justify-center rounded-md w-24 px-4 py-3 text-white m-4 hover:bg-blue-500 transition"
-    >
-      Back
-    </Link>
+        <form
+          onSubmit={submit}
+          className="bg-white border border-gray-200 rounded-xl shadow-lg p-8 space-y-8"
+          aria-label="Edit post form"
+        >
+          <h2 className="text-4xl font-extrabold text-blue-900 text-center tracking-tight">
+            Edit Your Post
+          </h2>
 
-    <div className="flex flex-col gap-6 rounded-xl p-6 overflow-x-auto">
-      <div className="max-w-md mx-auto w-full">
-        <form action={submitt} className="space-y-6">
-          <h3 className="bg-blue-500 p-2 text-white text-center rounded-sm text-xl font-semibold">
-            Create your Post
-          </h3>
+          <div>
+            <label
+              htmlFor="title"
+              className="block mb-2 font-semibold text-gray-800 text-lg"
+            >
+              Title
+            </label>
+            <input
+              type="text"
+              id="title"
+              value={data.title}
+              onChange={(e) => setData('title', e.target.value)}
+              className="w-full p-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-300 transition"
+              placeholder="Enter your post title"
+              autoComplete="off"
+              maxLength={100}
+              aria-describedby="titleHelp"
+              required
+            />
+            <p id="titleHelp" className="mt-1 text-sm text-gray-500 select-none">
+              Max 100 characters
+            </p>
+            {errors.title && (
+              <p className="text-red-600 font-semibold mt-2">{errors.title}</p>
+            )}
+          </div>
 
-          <label
-            htmlFor="title"
-            className="block text-2xl font-medium text-white bg-blue-400 rounded-md p-2 text-center"
-          >
-            Title
-          </label>
-          <Input
-            id="title"
-            className="mt-1 block w-full rounded-sm p-3 text-2xl border-2 border-black"
-            value={data.title}
-            onChange={(e) => setData('title', e.target.value)}
-            autoComplete="off"
-            placeholder="Enter title"
-          />
-          {errors.title && (
-            <div className="text-red-500 text-sm mt-1">{errors.title}</div>
-          )}
-
-          <label
-            htmlFor="body"
-            className="block text-2xl font-medium text-white bg-blue-400 rounded-md p-2 text-center"
-          >
-            Body
-          </label>
-          <Input
-            id="body"
-            className="mt-1 block w-full rounded-sm p-3 text-2xl border-2 border-black"
-            value={data.body}
-            onChange={(e) => setData('body', e.target.value)}
-            autoComplete="off"
-            placeholder="Enter body"
-          />
-          {errors.body && (
-            <div className="text-red-500 text-sm mt-1">{errors.body}</div>
-          )}
+          <div>
+            <label
+              htmlFor="body"
+              className="block mb-2 font-semibold text-gray-800 text-lg"
+            >
+              Body
+            </label>
+            <textarea
+              id="body"
+              value={data.body}
+              onChange={onBodyChange}
+              className="w-full p-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-300 transition resize-y min-h-[150px]"
+              placeholder="Write your post content here..."
+              maxLength={2000}
+              aria-describedby="bodyHelp"
+              required
+            />
+            <div className="flex justify-between mt-1 text-gray-500 text-sm select-none">
+              <p id="bodyHelp">Max 2000 characters</p>
+              <p>{bodyCharCount} / 2000</p>
+            </div>
+            {errors.body && (
+              <p className="text-red-600 font-semibold mt-2">{errors.body}</p>
+            )}
+          </div>
 
           <button
             type="submit"
-            className="w-full bg-black text-white py-3 rounded-md font-semibold hover:bg-gray-900 transition cursor-pointer"
+            disabled={processing}
+            className={`w-full py-4 rounded-xl font-extrabold text-white shadow-lg transition focus:outline-none focus:ring-4 focus:ring-red-400 ${
+              processing
+                ? 'bg-red-300 cursor-not-allowed'
+                : 'bg-red-600 hover:bg-red-700'
+            }`}
+            aria-live="polite"
           >
-            Update
+            {processing ? 'Updating...' : 'Update Post'}
           </button>
         </form>
       </div>
-    </div>
-  </AppLayout>
-);
-
+    </AppLayout>
+  )
 }
+
+export default EditPost

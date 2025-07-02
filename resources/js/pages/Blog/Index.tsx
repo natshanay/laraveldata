@@ -1,78 +1,53 @@
+import React from 'react';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
-import { Head , Link, useForm} from '@inertiajs/react';
+import { BreadcrumbItem } from '@/types';
+import { Head, Link } from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
-    {
-
-        title: 'posts',
-        href: '/posts',
-
-    },
+  {
+    title: 'Posts',
+    href: '/posts',
+  },
 ];
 
-export default function Dashboard({posts}:any) {
-
-    const { data, setData, delete:destroy , processing, errors, reset } = useForm({
-
-       title: '',
-       body: ''
-
-     });
-    
-    const deleteitem=(id:any)=>{
-        if (confirm('Are you sure you want to delete this post?')) {
-            destroy(route('posts.destroy', id))
-        }
-    
-    }
-console.log(posts)
- return (
-  <AppLayout breadcrumbs={breadcrumbs}>
-    <Head title="posts" />
-
-    <Link
-      className="bg-blue-400 text-white px-4xl flex items-center m-2  w-24 justify-center rounded-lg"
-      href="posts/create"
-    >
-      Create Post
-    </Link>
-
-    {posts?.map?.((post?: any) => (
-      <div
-        key={post.id}
-        className="p-5 bg-purple-800 rounded-lg m-2 flex flex-col items-start text-white"
-      >
-        {/* Actions */}
-        <div className="flex gap-3 mb-4">
+const Index = ({ posts }: any) => {
+  return (
+    <AppLayout breadcrumbs={breadcrumbs}>
+      <Head title="Posts" />
+      <div className="max-w-7xl mx-auto px-4 py-10">
+        <div className="flex justify-between items-center mb-10">
+          <h1 className="text-5xl font-extrabold text-gray-900 border-b-4 border-blue-600 pb-2">
+            Latest Posts
+          </h1>
           <Link
-            href={`/posts/${post.id}/edit`}
-            className="px-3 py-1 bg-green-400 text-black font-medium rounded cursor-pointer hover:bg-green-500 transition"
+            href="/posts/create"
+            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-md shadow-md transition"
           >
-            Edit
+            + Create Post
           </Link>
-          <Link
-            href={`/posts/${post.id}`}
-            className="px-3 py-1 bg-white text-black font-medium rounded cursor-pointer hover:bg-gray-200 transition"
-          >
-            Show
-          </Link>
-          <button
-            onClick={() => deleteitem(post.id)}
-            className="px-4 py-1 bg-red-400 text-white font-medium rounded cursor-pointer hover:bg-red-500 transition"
-          >
-            Delete
-          </button>
         </div>
-
-        {/* Title */}
-        <h2 className="text-3xl font-semibold mb-2">{post.title}</h2>
-
-        {/* Body */}
-        <p className="text-white">{post.body}</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.map((post: any) => (
+            <Link
+              key={post.id}
+              href={`/posts/${post.id}`}
+              className="block bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+            >
+              <div className="p-6">
+                <h2 className="text-3xl font-bold text-gray-800 mb-4">{post.title}</h2>
+                <p className="text-lg text-gray-600 line-clamp-4">{post.body}</p>
+              </div>
+              <div className="bg-gray-100 p-4 text-right">
+                <p className="text-sm text-gray-500">
+                  Posted on: {new Date(post.created_at).toLocaleDateString()}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
-    ))}
-  </AppLayout>
-);
+    </AppLayout>
+  );
+};
 
-}
+export default Index;
