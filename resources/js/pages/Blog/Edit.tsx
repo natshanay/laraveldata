@@ -57,11 +57,11 @@ const EditPost = ({ posts }: any) => {
               Title
             </label>
             <input
+              className="w-full p-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-300 transition"
               type="text"
               id="title"
               value={data.title}
               onChange={(e) => setData('title', e.target.value)}
-              className="w-full p-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-4 focus:ring-red-300 transition"
               placeholder="Enter your post title"
               autoComplete="off"
               maxLength={100}
@@ -105,7 +105,7 @@ const EditPost = ({ posts }: any) => {
           <button
             type="submit"
             disabled={processing}
-            className={`w-full py-4 rounded-xl font-extrabold text-white shadow-lg transition focus:outline-none focus:ring-4 focus:ring-red-400 ${
+            className={`cursor-pointer w-full py-4 rounded-xl font-extrabold text-white shadow-lg transition focus:outline-none focus:ring-4 focus:ring-red-400 ${
               processing
                 ? 'bg-red-300 cursor-not-allowed'
                 : 'bg-red-600 hover:bg-red-700'

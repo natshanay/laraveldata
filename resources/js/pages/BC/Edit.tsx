@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import AppLayout from '@/layouts/app-layout'
 import { BreadcrumbItem } from '@/types'
 import { Head, Link, useForm } from '@inertiajs/react'
+import { title } from 'process';
 type ShowProps = {
   posts: App.Data.Post.BlogData;
 };
@@ -12,6 +13,7 @@ export default function Index({ posts }:ShowProps) {
       title: posts.title,
       body: posts.body,
     })
+    console.log(title)
   console.log(posts)
   return (
     <>
@@ -22,6 +24,7 @@ export default function Index({ posts }:ShowProps) {
                   
                   className="inline-block bg-white hover:bg-white text-grey-900 hover:text-4xl font-semibold px-6 py-3 rounded-md shadow-md transition"
                 >
+                  {/* {title} */}
                Find Our latest posts
                 </Link>
                 <Link
@@ -31,7 +34,7 @@ export default function Index({ posts }:ShowProps) {
                   Back To Posts Page
                 </Link>
                 <Link
-                  href="/blogs/others"
+                  href="/blogs"
                   className="inline-block bg-orange-600 hover:bg-red-500 text-white font-semibold px-6 py-3 rounded-md shadow-md transition"
                 >
     Others
@@ -51,12 +54,25 @@ export default function Index({ posts }:ShowProps) {
                 <p className='text-black bg-white border  rounded-sm p-3 m-2'>{post.created_at}</p>
           <div className='flex flex-col gap-5'>
 
-          <div className='bg-orange-500 text-white border-2 items-center justify-center flex flex-col p-4 rounded-lg shadow-lg'>
+          <div 
+          className='bg-orange-500 text-white border-2 items-center justify-center flex flex-col p-4 rounded-lg shadow-lg'>
               <h1>{post.title}</h1>
          
             
           </div>
-          
+           <input
+              className='bg-orange-500 text-white border-2 items-center justify-center flex flex-col p-4 rounded-lg shadow-lg'
+              type="text"
+              id="title"
+              // value={<h1>{post.title}</h1>}
+              value={data.title}
+              onChange={(e) => setData('title', e.target.value)}
+              // placeholder="Enter your post title"
+              autoComplete="off"
+              maxLength={100}
+              aria-describedby="titleHelp"
+              
+            />
           <div className='bg-orange-500 text-white border-2 items-center justify-center flex flex-col p-4 rounded-lg shadow-lg'>
      
             <p>{post.body}</p>

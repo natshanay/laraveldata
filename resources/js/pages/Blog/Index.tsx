@@ -25,6 +25,12 @@ const Index = ({ posts }: any) => {
           >
             + Create Post
           </Link>
+          <Link
+            href="/blogs"
+            className="inline-block bg-orange-600 hover:bg-red-500 text-white font-semibold px-6 py-3 rounded-md shadow-md transition"
+          >
+            Go To Blogs
+          </Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.map((post: any) => (
