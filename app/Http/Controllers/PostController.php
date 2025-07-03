@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 use App\Data\ContactData;
 use App\Data\BlogData;
 
-class BlogPost extends Controller
+class PostController extends Controller
 {
 
 
-    
+
 public function index()
 {
 
@@ -69,7 +69,7 @@ public function create()
             "posts" => $posts,
         ]);
         
-        return redirect()->route('posts.index')->with('success', 'Blog post created successfully!');
+        
 
         
     }
