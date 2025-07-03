@@ -3,7 +3,7 @@
 namespace App\Data;
 
 use Spatie\LaravelData\Data;
-#[TypeScript] // ← THIS IS CRITICAL!
+#[TypeScript] 
 class BlogData extends Data
 {
     public function __construct(

@@ -3,16 +3,16 @@
 namespace App\Data;
 
 use Spatie\LaravelData\Data;
-// 
+ 
 use Spatie\LaravelData\DataCollection;
-// 
+ 
 use Spatie\LaravelData\WithDataCollection;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
-#[TypeScript] // ← THIS IS CRITICAL!
+#[TypeScript] 
 class ContactData extends Data
 {
-        // use WithDataCollection;d
+        
     public function __construct(
         
         public ?string $id,

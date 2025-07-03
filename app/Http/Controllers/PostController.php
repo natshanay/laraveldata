@@ -38,10 +38,10 @@ public function create()
     {
         
      Blog::create([
-    // 'id' => null,
+    
     'title' => $data->title,
     'body' => $data->body,
-    // 'created_at' => now(),
+    
 ]);
         return redirect()->route('posts.index')->with('success', 'Blog post created successfully!');
     }
