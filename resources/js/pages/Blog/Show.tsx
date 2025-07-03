@@ -18,7 +18,7 @@ const Show = ({ posts }: any) => {
         {/* Back Button */}
         <Link
           href="/posts"
-          className="inline-block mb-12 text-white px-6 py-3 bg-orange-300 text-gray-800 font-medium rounded-md shadow-sm hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition"
+          className="inline-block mb-12 px-6 py-3 bg-gray-300 text-gray-800 font-medium rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition"
           aria-label="Back to posts"
         >
           &larr; Back to Posts
@@ -43,7 +43,7 @@ const Show = ({ posts }: any) => {
         <div className="mt-20 flex justify-end">
           <Link
             href={`/posts/${posts.id}/edit`}
-            className="px-8 py-3 bg-orange-300  text-white font-medium rounded-md shadow-sm hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition"
+            className="px-8 py-3 bg-gray-300 text-gray-800 font-medium rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition"
             aria-label="Edit this post"
           >
             Edit Post

@@ -13,7 +13,7 @@ public function index(): \Inertia\Response
 {
     $posts = Blog::all();
 
-    return Inertia('BC/Index', [
+    return Inertia('blog/index', [
       'posts' => BlogData::collect($posts),
     ]);
 }
@@ -23,7 +23,7 @@ public function about(): \Inertia\Response
     
     
 
-    return Inertia('BC/About', [
+    return Inertia('blog/about', [
       'posts' => BlogData::collect($posts),
     ]);
 }
@@ -31,7 +31,7 @@ public function latest(): \Inertia\Response
 {
     
 $posts = Blog::orderBy('created_at', 'desc')->get();
-    return Inertia('BC/Latest', [
+    return Inertia('blog/latest', [
       'posts' => BlogData::collect($posts),
     ]);
 }
@@ -39,7 +39,7 @@ $posts = Blog::orderBy('created_at', 'desc')->get();
 public function show(string $id): \Inertia\Response
 {
     $posts = Blog::find($id);
-    return Inertia('BC/Show', [
+    return Inertia('blog/show', [
       'posts' => $posts,
     ]);
 }
@@ -58,7 +58,7 @@ public function show(string $id): \Inertia\Response
     public function edit()
     {
         $posts = Blog::all();
-        return Inertia('BC/Edit', [
+        return Inertia('blog/edit', [
             'posts' => $posts,
         ]);
     }

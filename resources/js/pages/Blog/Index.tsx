@@ -1,59 +1,83 @@
-import React from 'react';
-import AppLayout from '@/layouts/app-layout';
-import { BreadcrumbItem } from '@/types';
-import { Head, Link } from '@inertiajs/react';
-
-const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: 'Posts',
-    href: '/posts',
-  },
-];
-
-const Index = ({ posts }: any) => {
-  return (
-    <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title="Posts" />
-      <div className="max-w-7xl mx-auto px-4 py-10">
-        <div className="flex justify-between items-center mb-10">
-          <h1 className="text-5xl font-extrabold text-gray-900 border-b-4 border-blue-600 pb-2">
-            Latest Posts
-          </h1>
-          <Link
-            href="/posts/create"
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-md shadow-md transition"
-          >
-            + Create Post
-          </Link>
-          <Link
-            href="/blogs"
-            className="inline-block bg-orange-600 hover:bg-red-500 text-white font-semibold px-6 py-3 rounded-md shadow-md transition"
-          >
-            Go To Blogs
-          </Link>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post: any) => (
-            <Link
-              key={post.id}
-              href={`/posts/${post.id}`}
-              className="block bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-            >
-              <div className="p-6">
-                <h2 className="text-3xl font-bold text-gray-800 mb-4">{post.title}</h2>
-                <p className="text-lg text-gray-600 line-clamp-4">{post.body}</p>
-              </div>
-              <div className="bg-gray-100 p-4 text-right">
-                <p className="text-sm text-gray-500">
-                  Posted on: {new Date(post.created_at).toLocaleDateString()}
-                </p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </AppLayout>
-  );
+// import React, { useState } from 'react'
+import React, { useState } from 'react'
+import AppLayout from '@/layouts/app-layout'
+import { BreadcrumbItem } from '@/types'
+import { Head, Link, useForm } from '@inertiajs/react'
+type ShowProps = {
+  posts: App.Data.Post.BlogData;
 };
 
-export default Index;
+export default function Index({ posts }:ShowProps) {
+    const { data, setData, put, processing, errors } = useForm({
+      title: posts.title,
+      body: posts.body,
+    })
+  console.log(posts)
+  return (
+    <>
+        <div className="p-9 flex justify-center gap-50 items-center mb-10">
+    {/* <h4 className='bg-green-900'>Latest Posts</h4> */}
+               
+                <Link href='/blogs/latest'
+                  
+                  className="inline-block bg-white hover:bg-white text-grey-900 hover:text-4xl font-semibold px-6 py-3 rounded-md shadow-md transition"
+                >
+               Find Our latest posts
+                </Link>
+                <Link
+                  href="/posts/"
+                  className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-md shadow-md transition"
+                >
+                  Back To Posts Page
+                </Link>
+                <Link
+                  href="/blogs/others"
+                  className="inline-block bg-orange-600 hover:bg-red-500 text-white font-semibold px-6 py-3 rounded-md shadow-md transition"
+                >
+    Others
+                </Link>
+              </div>
+    {   posts.map((post:any)=>(
+      <>
+
+      
+      <Link href={`posts/${post.id}`} className="flex b-600 py-4 text-black hover:bg-orange-400 hover:text-white flex items-center justify-center  items-center justify-center p-2 m-4 text-5xl font-extrabold text-gray-900 border-b-4 border-blue-600 pb-2">
+             Posts By Id: {post.id}
+          </Link>
+    {/* <Link href= className="py-4   flex flex-center items-center flex gap-4 bg-pink-600 text-white "> */}
+     <div className='flex rounded-lg  flex-col m-19 items-center px-6 py-12 bg-blue-600 text-white text-3xl justify-center'>
+          < div className="ml-10 ">
+         
+                <p className='text-black bg-white border  rounded-sm p-3 m-2'>{post.created_at}</p>
+          <div className='flex flex-col gap-5'>
+
+          <div className='bg-orange-500 text-white border-2 items-center justify-center flex flex-col p-4 rounded-lg shadow-lg'>
+              <h1>{post.title}</h1>
+         
+            
+          </div>
+          
+          <div className='bg-orange-500 text-white border-2 items-center justify-center flex flex-col p-4 rounded-lg shadow-lg'>
+     
+            <p>{post.body}</p>
+            
+          </div>
+          </div>
+
+
+          {/* <p className='bg-white text-black flex items-center justify-center py-3 '>published date </p> */}
+        
+
+
+          </div>
+     </div>
+      
+    </>
+    ))}
+    
+
+    {/* </Link> */}
+   
+      </>
+  );
+}

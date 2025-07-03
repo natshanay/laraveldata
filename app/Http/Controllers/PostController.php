@@ -18,7 +18,7 @@ public function index()
 $blog = Blog::orderBy('created_at', 'desc')->get();
 $posts = ContactData::collect($blog);
 
-    return Inertia('Blog/Index', [
+    return Inertia('post/index', [
         'posts' => $posts,
     ]);
 }
@@ -27,7 +27,7 @@ $posts = ContactData::collect($blog);
 public function create()
     {
         $posts = Blog::all();
-        return inertia('Blog/Create', [
+        return inertia('post/create', [
             "posts"=>$posts
             
         ]); 
@@ -52,7 +52,7 @@ public function create()
 {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
     
            $posts = Blog::find($id);
-    return inertia("Blog/Show",[
+    return inertia("post/show",[
         "posts"=>$posts
     ]);
     
@@ -65,7 +65,7 @@ public function create()
     public function edit(string $id)
     {
         $posts = Blog::find($id);
-        return inertia("Blog/Edit", [
+        return inertia("blog/edit", [
             "posts" => $posts,
         ]);
         
