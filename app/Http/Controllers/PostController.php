@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Data\ContactData;
+use App\Data\PostData;
 use App\Data\BlogData;
 
 class PostController extends Controller
@@ -16,7 +16,7 @@ public function index()
 {
 
 $blog = Blog::orderBy('created_at', 'desc')->get();
-$posts = ContactData::collect($blog);
+$posts = PostData::collect($blog);
 
     return Inertia('post/index', [
         'posts' => $posts,
@@ -34,7 +34,7 @@ public function create()
     }
 
     
-    public function store(ContactData $data)
+    public function store(PostData $data)
     {
         
      Blog::create([
@@ -57,7 +57,7 @@ public function create()
     ]);
     
     
-    $contactData = ContactData::from(Blog::findOrFail($id));
+    $contactData = PostData::from(Blog::findOrFail($id));
     dd($contactData);
     }
     
@@ -65,7 +65,7 @@ public function create()
     public function edit(string $id)
     {
         $posts = Blog::find($id);
-        return inertia("blog/edit", [
+        return inertia("post/edit", [
             "posts" => $posts,
         ]);
         
@@ -74,7 +74,7 @@ public function create()
         
     }
 
-    public function update(ContactData $data, string $id)
+    public function update(PostData $data, string $id)
     {
         
 

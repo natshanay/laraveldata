@@ -10,7 +10,7 @@ use Spatie\LaravelData\WithDataCollection;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
 #[TypeScript] 
-class ContactData extends Data
+class PostData extends Data
 {
         
     public function __construct(
