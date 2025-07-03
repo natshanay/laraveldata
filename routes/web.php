@@ -2,20 +2,20 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\BlogPost;
-use App\Http\Controllers\BController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\BlogController;
 
 
 Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
-Route::get('/blogs/latest', [App\Http\Controllers\BController::class, 'latest']);
-Route::get('/blogs/others', [App\Http\Controllers\BController::class, 'thanks']);
-Route::get('/blogs/others', [App\Http\Controllers\BController::class, 'about']);
+Route::get('/blogs/latest', [App\Http\Controllers\BlogController::class, 'latest']);
+Route::get('/blogs/others', [App\Http\Controllers\BlogController::class, 'thanks']);
+Route::get('/blogs/others', [App\Http\Controllers\BlogController::class, 'about']);
 
-Route::resource('posts', BlogPost::class);
-Route::resource('blogs', BController::class);
-// Route::get('blogs/latest', BController::class );
+Route::resource('posts', PostController::class);
+Route::resource('blogs', BlogController::class);
+
 
 
 Route::middleware(['auth', 'verified'])->group(function () {

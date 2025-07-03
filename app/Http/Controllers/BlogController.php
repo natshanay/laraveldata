@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Data\BlogData;
 
-class BController extends Controller
+class BlogController extends Controller
 {
    
 public function index(): \Inertia\Response
