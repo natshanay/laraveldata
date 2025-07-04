@@ -1,6 +1,7 @@
 # Laravel + React Starter Kit
 a new change has been made to this read me practice page
 d
+p
 also there is a bye to it , 
 what else merge and pull and fetch
 ## Introduction
