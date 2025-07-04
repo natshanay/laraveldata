@@ -1,5 +1,6 @@
 # Laravel + React Starter Kit
 a new change has been made to this read me practice page
+d
 ## Introduction
 
 Our React starter kit provides a robust, modern starting point for building Laravel applications with a React frontend using [Inertia](https://inertiajs.com).
