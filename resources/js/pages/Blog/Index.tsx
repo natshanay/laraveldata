@@ -1,78 +1,83 @@
-import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
-import { Head , Link, useForm} from '@inertiajs/react';
+// import React, { useState } from 'react'
+import React, { useState } from 'react'
+import AppLayout from '@/layouts/app-layout'
+import { BreadcrumbItem } from '@/types'
+import { Head, Link, useForm } from '@inertiajs/react'
+type ShowProps = {
+  posts: App.Data.Post.BlogData;
+};
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
+export default function Index({ posts }:ShowProps) {
+    const { data, setData, put, processing, errors } = useForm({
+      title: posts.title,
+      body: posts.body,
+    })
+  console.log(posts)
+  return (
+    <>
+        <div className="p-9 flex justify-center gap-50 items-center mb-10">
+    {/* <h4 className='bg-green-900'>Latest Posts</h4> */}
+               
+                <Link href='/blogs/latest'
+                  
+                  className="inline-block bg-white hover:bg-white text-grey-900 hover:text-4xl font-semibold px-6 py-3 rounded-md shadow-md transition"
+                >
+               Find Our latest posts
+                </Link>
+                <Link
+                  href="/posts/"
+                  className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-md shadow-md transition"
+                >
+                  Back To Posts Page
+                </Link>
+                <Link
+                  href="/blogs/others"
+                  className="inline-block bg-orange-600 hover:bg-red-500 text-white font-semibold px-6 py-3 rounded-md shadow-md transition"
+                >
+    Others
+                </Link>
+              </div>
+    {   posts.map((post:any)=>(
+      <>
 
-        title: 'posts',
-        href: '/posts',
-
-    },
-];
-
-export default function Dashboard({posts}:any) {
-
-    const { data, setData, delete:destroy , processing, errors, reset } = useForm({
-
-       title: '',
-       body: ''
-
-     });
-    
-    const deleteitem=(id:any)=>{
-        if (confirm('Are you sure you want to delete this post?')) {
-            destroy(route('posts.destroy', id))
-        }
-    
-    }
-console.log(posts)
- return (
-  <AppLayout breadcrumbs={breadcrumbs}>
-    <Head title="posts" />
-
-    <Link
-      className="bg-blue-400 text-white px-4xl flex items-center m-2  w-24 justify-center rounded-lg"
-      href="posts/create"
-    >
-      Create Post
-    </Link>
-
-    {posts?.map?.((post?: any) => (
-      <div
-        key={post.id}
-        className="p-5 bg-purple-800 rounded-lg m-2 flex flex-col items-start text-white"
-      >
-        {/* Actions */}
-        <div className="flex gap-3 mb-4">
-          <Link
-            href={`/posts/${post.id}/edit`}
-            className="px-3 py-1 bg-green-400 text-black font-medium rounded cursor-pointer hover:bg-green-500 transition"
-          >
-            Edit
+      
+      <Link href={`posts/${post.id}`} className="flex b-600 py-4 text-black hover:bg-orange-400 hover:text-white flex items-center justify-center  items-center justify-center p-2 m-4 text-5xl font-extrabold text-gray-900 border-b-4 border-blue-600 pb-2">
+             Posts By Id: {post.id}
           </Link>
-          <Link
-            href={`/posts/${post.id}`}
-            className="px-3 py-1 bg-white text-black font-medium rounded cursor-pointer hover:bg-gray-200 transition"
-          >
-            Show
-          </Link>
-          <button
-            onClick={() => deleteitem(post.id)}
-            className="px-4 py-1 bg-red-400 text-white font-medium rounded cursor-pointer hover:bg-red-500 transition"
-          >
-            Delete
-          </button>
-        </div>
+    {/* <Link href= className="py-4   flex flex-center items-center flex gap-4 bg-pink-600 text-white "> */}
+     <div className='flex rounded-lg  flex-col m-19 items-center px-6 py-12 bg-blue-600 text-white text-3xl justify-center'>
+          < div className="ml-10 ">
+         
+                <p className='text-black bg-white border  rounded-sm p-3 m-2'>{post.created_at}</p>
+          <div className='flex flex-col gap-5'>
 
-        {/* Title */}
-        <h2 className="text-3xl font-semibold mb-2">{post.title}</h2>
+          <div className='bg-orange-500 text-white border-2 items-center justify-center flex flex-col p-4 rounded-lg shadow-lg'>
+              <h1>{post.title}</h1>
+         
+            
+          </div>
+          
+          <div className='bg-orange-500 text-white border-2 items-center justify-center flex flex-col p-4 rounded-lg shadow-lg'>
+     
+            <p>{post.body}</p>
+            
+          </div>
+          </div>
 
-        {/* Body */}
-        <p className="text-white">{post.body}</p>
-      </div>
+
+          {/* <p className='bg-white text-black flex items-center justify-center py-3 '>published date </p> */}
+        
+
+
+          </div>
+     </div>
+      
+    </>
     ))}
-  </AppLayout>
-);
+    
 
+    {/* </Link> */}
+   
+      </>
+  );
 }
