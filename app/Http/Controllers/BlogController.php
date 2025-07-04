@@ -12,10 +12,14 @@ class BlogController extends Controller
 public function index(): \Inertia\Response
 {
     $posts = Blog::all();
+    // C:\Users\hp\dataobjects\resources\js\pages\blog\Index.tsx
 
-    return Inertia('blog/index', [
+    return Inertia('blog/Index'
+    , [
       'posts' => BlogData::collect($posts),
-    ]);
+    ]
+  
+  ); 
 }
 public function about(): \Inertia\Response
 {

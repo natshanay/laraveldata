@@ -26,9 +26,10 @@ const Index = ({ posts }: any) => {
             + Create Post
           </Link>
           <Link
-            href="/blogs"
+            href={`/blogs`}
             className="inline-block bg-orange-600 hover:bg-red-500 text-white font-semibold px-6 py-3 rounded-md shadow-md transition"
           >
+            {/* C:\Users\hp\dataobjects\resources\js\pages\post\index.tsx */}
             Go To Blogs
           </Link>
         </div>

@@ -1,11 +1,7 @@
-// import React, { useState } from 'react'
 import React, { useState } from 'react'
 import AppLayout from '@/layouts/app-layout'
 import { BreadcrumbItem } from '@/types'
 import { Head, Link, useForm } from '@inertiajs/react'
-// type ShowProps = {
-//   posts: App.Data.Post.BlogData;
-// };
 
 export default function Index({ posts }:any) {
     const { data, setData, put, processing, errors } = useForm({
@@ -63,20 +59,14 @@ export default function Index({ posts }:any) {
             
           </div>
           </div>
-
-
-          {/* <p className='bg-white text-black flex items-center justify-center py-3 '>published date </p> */}
-        
-
-
-          </div>
+ </div>
      </div>
       
     </>
     ))}
     
 
-    {/* </Link> */}
+    
    
       </>
   );
