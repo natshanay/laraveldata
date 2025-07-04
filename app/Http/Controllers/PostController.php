@@ -10,8 +10,6 @@ use App\Data\BlogData;
 class PostController extends Controller
 {
 
-
-
 public function index()
 {
 
