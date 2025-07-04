@@ -9,6 +9,7 @@ use App\Http\Controllers\BlogController;
 Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
+
 Route::get('/blogs/latest', [App\Http\Controllers\BlogController::class, 'latest']);
 Route::get('/blogs/others', [App\Http\Controllers\BlogController::class, 'thanks']);
 Route::get('/blogs/others', [App\Http\Controllers\BlogController::class, 'about']);
