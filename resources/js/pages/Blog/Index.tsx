@@ -3,11 +3,11 @@ import React, { useState } from 'react'
 import AppLayout from '@/layouts/app-layout'
 import { BreadcrumbItem } from '@/types'
 import { Head, Link, useForm } from '@inertiajs/react'
-type ShowProps = {
-  posts: App.Data.Post.BlogData;
-};
+// type ShowProps = {
+//   posts: App.Data.Post.BlogData;
+// };
 
-export default function Index({ posts }:ShowProps) {
+export default function Index({ posts }:any) {
     const { data, setData, put, processing, errors } = useForm({
       title: posts.title,
       body: posts.body,
