@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\SettingController;
 
 
 Route::get('/', function () {
@@ -16,6 +17,7 @@ Route::get('/blogs/others', [App\Http\Controllers\BlogController::class, 'about'
 
 Route::resource('posts', PostController::class);
 Route::resource('blogs', BlogController::class);
+Route::resource('dashboard', SettingController::class);
 
 
 
